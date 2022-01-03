@@ -2,10 +2,17 @@ import React, { Component } from "react";
 
 export class NewsItem extends Component {
   render() {
-    let { title, description, imageUrl, newsUrl, author, date } = this.props;
+    let { title, description, imageUrl, newsUrl, author, date, source } =
+      this.props;
     return (
       <div className="my-3">
         <div className="card " style={{ width: "20 rem" }}>
+          <span
+            className="position-absolute top-0  translate-middle badge rounded-pill bg-danger"
+            style={{ left: "92%", zIndex: "1" }}
+          >
+            {source}
+          </span>
           <img
             style={{ height: "250px", width: "100%", objectFit: "cover" }}
             src={
@@ -17,10 +24,10 @@ export class NewsItem extends Component {
             alt="..."
           />
           <div className="card-body">
-            <h5 className="card-title"> {title}...</h5>
-            <p className="card-text">{description}...</p>
-            <p class="card-text">
-              <small class="text-muted">
+            <h5 className="card-title "> {title} </h5>
+            <p className="card-text">{description}</p>
+            <p className="card-text">
+              <small className="text-muted">
                 By {!author ? "Unknown" : author} updated{" "}
                 {new Date(date).toGMTString()}
               </small>
