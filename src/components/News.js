@@ -23,7 +23,7 @@ export default class News extends Component {
       articles: [],
       page: 1,
       totalResults: 0,
-      loading: false,
+      loading: true,
     };
     document.title = `NewsMonkey-${this.capitalize(this.props.category)}`;
   }
@@ -106,13 +106,11 @@ export default class News extends Component {
     this.setState({ page: this.state.page + 1 });
     const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=e42a8f3e91ec41f09aa3cc1ee18b9626&page=${this.state.page}
     &pageSize=${this.props.pageSize}`;
-    this.setState({ loading: true });
     let data = await fetch(url);
     let parseData = await data.json();
     console.log(parseData);
     this.setState({
       articles: this.state.articles.concat(parseData.articles),
-      loading: false,
       totalResults: parseData.totalResults,
     });
   };
@@ -120,13 +118,13 @@ export default class News extends Component {
   render() {
     return (
       <>
-        <div>
+        <div className="container">
           <h2> Top Headlines </h2>
           <p>
             on <strong>{this.capitalize(this.props.category)}</strong> Category
           </p>
         </div>
-        {/* {this.state.loading && <Spinner />} */}
+        {this.state.loading && <Spinner />}
         <div>
           <InfiniteScroll
             dataLength={this.state.articles.length}
